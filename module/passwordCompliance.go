@@ -7,29 +7,47 @@ import (
 	"github.com/addonrizky/complianceBrimo/rule"
 )
 
-func ComplyPassword(username string, usernameAlias string, password string) model.Validation {
+func ComplyPassword(username string, usernameAlias string, password string, channel string) model.Validation {
 	var validationObject model.Validation
 	isUsernameAliasExist := false
 	if usernameAlias != "" {
 		isUsernameAliasExist = true
 	}
 
-	//password length must min8
-	if len(password) < 8 {
-		validationObject = model.Validation{
-			Code: "V6",
-			Desc: "Panjang minimal password adalah 12",
-		}
-		return validationObject
+	isPinPassword := false
+	if channel == "EDC" || channel == "ATM" {
+		isPinPassword = true
 	}
 
-	//password length must max20
-	if len(password) > 20 {
-		validationObject = model.Validation{
-			Code: "V7",
-			Desc: "Panjang maximal password adalah 23",
+	//password length must min 6 , max 6 if pin true
+	if isPinPassword == true {
+		if len(password) != 6 {
+			validationObject = model.Validation{
+				Code: "V6",
+				Desc: "Panjang minimal & Maksimal password adalah 6",
+			}
+			return validationObject
 		}
-		return validationObject
+	}
+
+	if isPinPassword == false {
+		//password length must min12
+		if len(password) < 12 {
+			validationObject = model.Validation{
+				Code: "V6",
+				Desc: "Panjang minimal password adalah 6",
+			}
+			return validationObject
+		}
+
+		//password length must max20
+		if len(password) > 20 {
+			validationObject = model.Validation{
+				Code: "V7",
+				Desc: "Panjang maximal password adalah 23",
+			}
+			return validationObject
+		}
 	}
 
 	//password must not contain space
