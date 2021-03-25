@@ -13,8 +13,9 @@ func main() {
 	isAlphaOnly := rule.IsAlphaOnly("iijioio ")
 	isAlphaNumeric := rule.IsAlphaNumeric("fwjeiofjweoi")
 	wkwkwk := module.ComplyUsername("wegweg534612")
-	ckckck := module.ComplyPassword("adonit2504", "ramadhan2568", "123456ewheHfh", "OOAO")
+	ckckck := module.ComplyPassword("adonit2504", "ramadhan2568", "251331", "EDC")
 	oke := module.GetProductTypeByAccnum("020601087063504")
+	
 	fmt.Println(isSpaceExist)
 	fmt.Println(isNumeric)
 	fmt.Println(isAlphaOnly)

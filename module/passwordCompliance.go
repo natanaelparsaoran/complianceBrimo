@@ -29,7 +29,7 @@ func ComplyPassword(username string, usernameAlias string, password string, chan
 			return validationObject
 		}
 
-		//password must not contain only numeric
+		//password must contain only numeric
 		if !rule.IsNumeric(password) {
 			validationObject = model.Validation{
 				Code: "VH",
@@ -37,6 +37,31 @@ func ComplyPassword(username string, usernameAlias string, password string, chan
 			}
 			return validationObject
 		}
+
+		switch password {
+			case
+			"123456",
+			"654321",
+			"112233",
+			"111111",
+			"222222",
+			"333333",
+			"444444",
+			"555555",
+			"666666",
+			"777777",
+			"888888",
+			"999999",
+			"000000":
+			validationObject = model.Validation{
+				Code: "VI",
+				Desc: "kombinasi pin terlalu mudah",
+			}
+			return validationObject
+		}
+
+		
+		
 	}
 
 	if isPinPassword == false {
