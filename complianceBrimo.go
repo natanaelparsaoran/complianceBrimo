@@ -26,10 +26,10 @@ func main() {
 	check := module.ComplyOpenAccFlexyRequest(
 		"020601087063504", 
 		"BF", 
-		"IDR",
+		"IR",
 		"1000000",
 		"239",
-		"150421",
+		"190421",
 		"250489", 
 		`{"allowed_saving_code":["50","56"],"borndate_min":"17","month_min":"9","month_max":"240","amount_min":"500000","amount_max":"1000000000","first_transfer_date_min":"1","first_transfer_date_max":"30","allowed_sc_code":["BF"],"allowed_currency":["IDR"]}`, 
 		"dev",

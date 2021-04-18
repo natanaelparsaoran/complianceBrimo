@@ -2,6 +2,7 @@ package library
 
 import (
 	"time"
+	"github.com/addonrizky/complianceBrimo/model"
 )
 
 func StringInSlice(a string, list []string) bool {
@@ -13,6 +14,7 @@ func StringInSlice(a string, list []string) bool {
     return false
 }
 
+//Age, function to calculate age base on birth date
 func Age(birthdate, today time.Time) int {
 	today = today.In(birthdate.Location())
 	ty, tm, td := today.Date()
@@ -30,6 +32,7 @@ func Age(birthdate, today time.Time) int {
 	return age
 }
 
+//Diffday, function to retrieve days differences between two date
 func Diffday(fromDate, toDate time.Time) int {
 	yfrom, mfrom, dfrom := fromDate.Date()
 	yto, mto, dto := toDate.Date()
@@ -43,4 +46,13 @@ func Diffday(fromDate, toDate time.Time) int {
 
 func theDate(year, month, day int) time.Time {
     return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
+}
+
+//GetValidationResult, retrieve object validation
+func GetValidationResult(code string, desc string) model.Validation{
+	validationObject := model.Validation{
+		Code: code,
+		Desc: desc,
+	}
+	return validationObject
 }
