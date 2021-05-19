@@ -97,29 +97,31 @@ func ComplyOpenAccFlexyRequest(
 		return library.GetValidationResult(constant.RC_F6, constant.DESC_F6)
 	}
 
-	//first transfer date must be > today && <= today+30
-	if flexyParameter["first_transfer_date_min"] == nil {
-		return library.GetValidationResult(constant.RC_J7, constant.DESC_J7)
-	}
-	if flexyParameter["first_transfer_date_max"] == nil {
-		return library.GetValidationResult(constant.RC_J8, constant.DESC_J8)
-	}
-	allowedFirstTransferDateMin, _ := strconv.Atoi(flexyParameter["first_transfer_date_min"].(string))
-	allowedFirstTransferDateMax, _ := strconv.Atoi(flexyParameter["first_transfer_date_max"].(string))
-	formatDate = "020106"
-	formattedTime, _ = time.Parse(formatDate, firstTransferDate)
-	if err != nil {
-		//return "woy yg bener tanggalnya, format yg bener ini ...."
-		return library.GetValidationResult(constant.RC_F7, constant.DESC_F7)
-	}
-	rangeFirstTransferDate := library.Diffday(time.Now(), formattedTime)
-	if rangeFirstTransferDate < allowedFirstTransferDateMin {
-		//return "first transfer date not allowed, minimum first transfer date is H+" + strconv.Itoa(allowedFirstTransferDateMin)
-		return library.GetValidationResult(constant.RC_F9, constant.DESC_F9 + "" + strconv.Itoa(allowedFirstTransferDateMin))
-	}
-	if rangeFirstTransferDate > allowedFirstTransferDateMax {
-		//return "first transfer date not allowed, maximum first transfer date is H+" + strconv.Itoa(allowedFirstTransferDateMax)
-		return library.GetValidationResult(constant.RC_F8, constant.DESC_F8 + "" + strconv.Itoa(allowedFirstTransferDateMax))
+	if env == "development" {
+		//first transfer date must be > today && <= today+30
+		if flexyParameter["first_transfer_date_min"] == nil {
+			return library.GetValidationResult(constant.RC_J7, constant.DESC_J7)
+		}
+		if flexyParameter["first_transfer_date_max"] == nil {
+			return library.GetValidationResult(constant.RC_J8, constant.DESC_J8)
+		}
+		allowedFirstTransferDateMin, _ := strconv.Atoi(flexyParameter["first_transfer_date_min"].(string))
+		allowedFirstTransferDateMax, _ := strconv.Atoi(flexyParameter["first_transfer_date_max"].(string))
+		formatDate = "020106"
+		formattedTime, _ = time.Parse(formatDate, firstTransferDate)
+		if err != nil {
+			//return "woy yg bener tanggalnya, format yg bener ini ...."
+			return library.GetValidationResult(constant.RC_F7, constant.DESC_F7)
+		}
+		rangeFirstTransferDate := library.Diffday(time.Now(), formattedTime)
+		if rangeFirstTransferDate < allowedFirstTransferDateMin {
+			//return "first transfer date not allowed, minimum first transfer date is H+" + strconv.Itoa(allowedFirstTransferDateMin)
+			return library.GetValidationResult(constant.RC_F9, constant.DESC_F9 + "" + strconv.Itoa(allowedFirstTransferDateMin))
+		}
+		if rangeFirstTransferDate > allowedFirstTransferDateMax {
+			//return "first transfer date not allowed, maximum first transfer date is H+" + strconv.Itoa(allowedFirstTransferDateMax)
+			return library.GetValidationResult(constant.RC_F8, constant.DESC_F8 + "" + strconv.Itoa(allowedFirstTransferDateMax))
+		}
 	}
 
 	//only BF that can be open in this phase
