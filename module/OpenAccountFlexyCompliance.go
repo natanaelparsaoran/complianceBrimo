@@ -97,7 +97,7 @@ func ComplyOpenAccFlexyRequest(
 		return library.GetValidationResult(constant.RC_F6, constant.DESC_F6)
 	}
 
-	if env == "development" {
+	if env != "development" {
 		//first transfer date must be > today && <= today+30
 		if flexyParameter["first_transfer_date_min"] == nil {
 			return library.GetValidationResult(constant.RC_J7, constant.DESC_J7)
