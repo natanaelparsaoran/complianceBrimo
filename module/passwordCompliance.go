@@ -65,20 +65,20 @@ func ComplyPassword(username string, usernameAlias string, password string, chan
 	}
 
 	if isPinPassword == false {
-		//password length must min12
-		if len(password) < 12 {
+		//password length must min 8
+		if len(password) < 8 {
 			validationObject = model.Validation{
 				Code: "V6",
-				Desc: "Panjang minimal password adalah 12",
+				Desc: "Panjang minimal password adalah 8",
 			}
 			return validationObject
 		}
 
-		//password length must max20
-		if len(password) > 20 {
+		//password length must max 12
+		if len(password) > 12 {
 			validationObject = model.Validation{
 				Code: "V7",
-				Desc: "Panjang maximal password adalah 23",
+				Desc: "Panjang maximal password adalah 12",
 			}
 			return validationObject
 		}
